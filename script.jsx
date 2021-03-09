@@ -1,8 +1,17 @@
 
+var reportPath = arguments[1] + "-report.txt"
+report = new File(reportPath);
+report.encoding='UTF-8';
+report.open('w');
+
 if (arguments[0] == 'cover') {
-    getIsbn()
+    var isbn = getIsbn()
+    alert(isbn);
+    report.write(isbn);
 } else if (arguments[0] == 'insides') {
-    alert(arguments[0] + " == insides")
+    report.write("insides");
+} else {
+    report.write("failed to detect file type by file name");
 }
 
 function getIsbn() {
@@ -14,12 +23,14 @@ function getIsbn() {
         for (var j = 0; j < lines.length; j++){
             var contents = lines[j].contents;
             if (contents.match(/isbn/i) && !contents.match(/set/i)) {
-                alert(contents)
                 isbn = contents;
+                lines[j].parentStory.textContainers[0].label = isbn;
                 break;
             }
         }
     }
     return isbn;
 }
-app.activeDocument.close(SaveOptions.no);
+
+report.close('w');
+// app.activeDocument.close(SaveOptions.yes);

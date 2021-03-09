@@ -2,7 +2,7 @@ def run_applescript(file,script,args)
   command = <<~SCRIPT
     tell application "Adobe InDesign 2021" 
       open "#{file}" 
-      do script "#{script}" with arguments {"#{args}"} language javascript
+      do script "#{script}" with arguments {"#{args}", "#{file}"} language javascript
     end tell
   SCRIPT
   $stderr.puts command
