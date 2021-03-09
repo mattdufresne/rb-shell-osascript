@@ -1,6 +1,6 @@
 def run_applescript(file,script)
   command = <<~SCRIPT
-    tell application "Adobe InDesign 2020" 
+    tell application "Adobe InDesign 2021" 
       open "#{file}" 
       do script "#{script}" with arguments {} language javascript
     end tell
