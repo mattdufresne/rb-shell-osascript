@@ -1,7 +1,6 @@
-
 def run_applescript(file,script)
   command = <<~SCRIPT
-    tell application "Adobe InDesign 2021" 
+    tell application "Adobe InDesign 2020" 
       open "#{file}" 
       do script "#{script}" with arguments {} language javascript
     end tell
@@ -11,8 +10,8 @@ def run_applescript(file,script)
 end
 
 script = File.expand_path("./script.jsx")
-file = File.expand_path("./file.indd")
 
-run_applescript(file,script)
-
-
+Dir.glob('**/*.indd').each do |f|
+  file = File.expand_path(f)
+  run_applescript(file,script)
+end
