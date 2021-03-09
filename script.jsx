@@ -1,18 +1,14 @@
+var filePath = arguments[0];
+var companionFilePath = arguments[1];
 
-var reportPath = arguments[1] + "-report.txt"
+var reportPath = filePath + "-report.txt"
 report = new File(reportPath);
 report.encoding='UTF-8';
 report.open('w');
 
-if (arguments[0] == 'cover') {
-    var isbn = getIsbn()
-    alert(isbn);
-    report.write(isbn);
-} else if (arguments[0] == 'insides') {
-    report.write("insides");
-} else {
-    report.write("failed to detect file type by file name");
-}
+var isbn = getIsbn()
+setCompanionIsbn(isbn, companionFilePath)
+report.write(isbn);
 
 function getIsbn() {
     var isbn = null;
@@ -29,7 +25,16 @@ function getIsbn() {
             }
         }
     }
+    alert(isbn);
     return isbn;
+}
+
+function setCompanionIsbn(isbn, companionFilePath) {
+    app.open(companionFilePath)
+    alert(companionFilePath)
+    alert("Setting companion with " + isbn)
+    var textFrame = app.activeDocument.pages[0].textFrames.add();
+    textFrame.properties = {geometricBounds: [0,0,0,0], label: isbn}
 }
 
 report.close('w');
