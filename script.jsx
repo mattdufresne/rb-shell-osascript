@@ -15,6 +15,7 @@ function getIsbn() {
             var contents = lines[j].contents;
             if (contents.match(/isbn/i) && !contents.match(/set/i)) {
                 alert(contents)
+                isbn = contents;
                 break;
             }
         }
